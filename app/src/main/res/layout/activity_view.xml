@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.ViewActivity">
+
+    <Button
+        android:id="@+id/btn_move"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="跟随移动view" />
+
+    <Button
+        android:id="@+id/btn_vp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="简化版ViewPager"
+        app:layout_constraintTop_toBottomOf="@+id/btn_move" />
+
+    <Button
+        android:id="@+id/btn_numkey"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="自定义数字键盘"
+        app:layout_constraintTop_toBottomOf="@+id/btn_vp" />
+
+    <Button
+        android:id="@+id/btn_animation"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="动画"
+        app:layout_constraintTop_toBottomOf="@+id/btn_numkey" />
+
+    <Button
+        android:id="@+id/btn_mask"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="相机蒙层"
+        app:layout_constraintTop_toBottomOf="@+id/btn_animation" />
+
+</android.support.constraint.ConstraintLayout>

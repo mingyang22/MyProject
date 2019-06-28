@@ -1,0 +1,34 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="right"
+    android:orientation="horizontal"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp" >
+
+    <FrameLayout
+        android:id="@+id/chat_content"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/bg_huise"
+        android:paddingTop="5dp" >
+
+        <TextView
+            android:id="@+id/chat_text_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:gravity="right"
+            android:text="消息" />
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:paddingLeft="5dip"
+        android:src="@mipmap/ic_launcher" />
+
+</LinearLayout>

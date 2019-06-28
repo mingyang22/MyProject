@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="com.yangming.myproject.databinding.Utils" />
+
+        <import type="java.util.ArrayList" />
+
+        <import type="java.util.Map" />
+
+        <import type="android.view.View"/>
+
+        <import type="java.util.Date"/>
+
+        <import type="com.yangming.myproject.databinding.ObSwordsman"/>
+
+        <variable
+            name="swordsman"
+            type="com.yangming.myproject.databinding.Swordsman" />
+
+        <variable
+            name="Onclicklistener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="name"
+            type="String" />
+
+        <variable
+            name="age"
+            type="int" />
+
+        <variable
+            name="man"
+            type="boolean" />
+
+        <variable
+            name="list"
+            type="ArrayList&lt;String>" />
+
+        <variable
+            name="map"
+            type="Map&lt;String,String&gt;" />
+
+        <variable
+            name="arrays"
+            type="String[]" />
+
+        <variable
+            name="time"
+            type="java.util.Date"/>
+        
+        <variable
+            name="obswordsman"
+            type="ObSwordsman"/>
+
+    </data>
+
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".databinding.DataBindingActivity">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{swordsman.name}" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{swordsman.level}" />
+
+        <Button
+            android:id="@+id/bt_next"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{Onclicklistener}"
+            android:text="点击事件监听" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{name}" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(age)}" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(man)}" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{list.get(1)}" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{map.get(`age`)}" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{arrays[1]}" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{Utils.getName(swordsman)}" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{`Age :` + String.valueOf(age)}" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="三目运算"
+            android:visibility="@{man?View.VISIBLE:View.GONE}" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{time}" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/color_999999"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@{obswordsman.name}" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{obswordsman.level}" />
+
+        <Button
+            android:id="@+id/bt_updata_obswordsman"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="使用Observable更新数据" />
+
+    </LinearLayout>
+</layout>

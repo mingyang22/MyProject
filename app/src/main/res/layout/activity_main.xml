@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/btn_alipay"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="支付宝首页" />
+
+    <Button
+        android:id="@+id/btn_image"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="图片选择" />
+
+    <Button
+        android:id="@+id/btn_chat"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="聊天" />
+
+    <Button
+        android:id="@+id/btn_snapHelper"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="SnapHelper" />
+
+    <Button
+        android:id="@+id/btn_view"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="自定义view" />
+
+    <Button
+        android:id="@+id/btn_link"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="联系人" />
+
+    <Button
+        android:id="@+id/btn_notification"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="通知" />
+
+    <Button
+        android:id="@+id/btn_data_binding"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="databinding" />
+
+    <Button
+        android:id="@+id/btn_messenger"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="信使messenger" />
+
+    <Button
+        android:id="@+id/btn_aidl"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="AIDL" />
+
+    <Button
+        android:id="@+id/btn_thread"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="线程" />
+
+</LinearLayout>

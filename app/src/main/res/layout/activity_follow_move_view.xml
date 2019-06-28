@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.yangming.myproject.view.followmove.FollowMoveView
+        android:id="@+id/custom"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_margin="10dp"
+        android:background="@color/appColor" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
+        android:background="@android:color/holo_blue_bright"
+        android:gravity="center"
+        android:text="scrollTo"
+        android:textSize="@dimen/text_size_12" />
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_margin="10dp"
+        android:background="@android:color/holo_blue_bright"
+        android:gravity="center"
+        android:text="View动画"
+        android:textSize="@dimen/text_size_11" />
+
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
+        android:background="@android:color/holo_blue_bright"
+        android:gravity="center"
+        android:text="属性动画" />
+
+    <TextView
+        android:id="@+id/text3"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_margin="10dp"
+        android:background="@android:color/holo_blue_bright"
+        android:gravity="center"
+        android:text="改变布局参数"
+        android:textSize="@dimen/text_size_11" />
+
+    <com.yangming.myproject.view.followmove.ScrollerView
+        android:id="@+id/text4"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
+        android:background="@android:color/holo_blue_bright"
+        android:gravity="center"
+        android:text="Scroller"
+        android:textSize="@dimen/text_size_10" />
+
+    <TextView
+        android:id="@+id/text5"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_margin="10dp"
+        android:background="@android:color/holo_blue_bright"
+        android:gravity="center"
+        android:text="ValueAnimator"
+        android:textSize="@dimen/text_size_10" />
+
+    <TextView
+        android:id="@+id/text6"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_margin="10dp"
+        android:background="@android:color/holo_blue_bright"
+        android:gravity="center"
+        android:text="Handler延时策略"
+        android:textSize="@dimen/text_size_10" />
+
+    <TextView
+        android:id="@+id/text7"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_margin="10dp"
+        android:background="@android:color/holo_blue_bright"
+        android:gravity="center"
+        android:text="postDelayed"
+        android:textSize="@dimen/text_size_10" />
+
+    <TextView
+        android:id="@+id/text8"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_margin="10dp"
+        android:background="@android:color/holo_blue_bright"
+        android:gravity="center"
+        android:text="sleep延时策略"
+        android:textSize="@dimen/text_size_10" />
+
+</LinearLayout>

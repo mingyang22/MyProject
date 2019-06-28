@@ -1,0 +1,161 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/bg_huise"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:id="@+id/relative_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/bg_huise"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/frame"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_above="@+id/chat_bottom">
+
+            <ListView
+                android:id="@+id/rlv_chats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cacheColorHint="@color/transparent"
+                android:divider="@color/transparent"
+                android:dividerHeight="10dp"
+                android:fadingEdge="none"
+                android:listSelector="@color/transparent"
+                android:scrollbars="none"
+                android:stackFromBottom="true"
+                android:transcriptMode="alwaysScroll"
+                android:visibility="gone" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never"
+                android:scrollbars="none" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/chat_bottom"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/new_background" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp">
+
+                <TextView
+                    android:id="@+id/txt_people_service"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/white"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:onClick="OnButtonClick"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="3dp"
+                    android:text="人工客服"
+                    android:textColor="@color/color_333333"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/new_background" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:minHeight="50dp">
+
+                <ImageView
+                    android:id="@+id/iv_cut"
+                    android:layout_width="35dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:clickable="true"
+                    android:onClick="OnButtonClick"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/chat_input_icon_voice" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/img_send"
+                    android:layout_toRightOf="@+id/iv_cut"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <EditText
+                        android:id="@+id/et_common_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:clickable="true"
+                        android:hint="请输入内容"
+                        android:inputType="textMultiLine"
+                        android:maxLines="3"
+                        android:minHeight="40dp"
+                        android:onClick="OnButtonClick"
+                        android:padding="5dp"
+                        android:textSize="18sp"
+                        android:visibility="visible" />
+
+                </LinearLayout>
+
+
+                <ImageView
+                    android:id="@+id/img_send"
+                    android:layout_width="35dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:clickable="true"
+                    android:onClick="OnButtonClick"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/chat_input_icon_sent" />
+            </RelativeLayout>
+
+            <!--
+            <include
+                android:id="@+id/chat_more_lay"
+                layout="@layout/chat_more"
+                android:layout_width="fill_parent"
+                android:layout_height="210dp"
+                android:visibility="gone" />
+
+            <include
+                android:id="@+id/chat_face_new"
+                layout="@layout/face_image_view_new"
+                android:layout_width="fill_parent"
+                android:layout_height="210dp"
+                android:visibility="gone" />
+               -->
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>
