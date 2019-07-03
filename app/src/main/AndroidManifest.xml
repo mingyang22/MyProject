@@ -77,7 +77,8 @@
             android:name=".thread.LocalIntentService"
             android:exported="false" />
 
-        <activity android:name=".view.mask.MaskActivity"></activity>
+        <activity android:name=".view.mask.MaskActivity" />
+        <activity android:name=".imageloader.PhotoWallActivity"></activity>
     </application>
 
 </manifest>
