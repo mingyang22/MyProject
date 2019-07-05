@@ -2,8 +2,13 @@ package baselibrary.mvp;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
+
+import baselibrary.api.HttpConstants;
+import baselibrary.api.rx.BaseSubscriber;
+import baselibrary.api.rx.ExceptionEvent;
+import baselibrary.api.rx.RxBus;
 import baselibrary.mvp.presenter.BasePresenter;
 import baselibrary.mvp.view.IView;
 import butterknife.ButterKnife;
@@ -12,7 +17,7 @@ import butterknife.Unbinder;
 /**
  * @author yangming on 2019/3/28
  */
-public abstract class BaseMvpActivity<P extends BasePresenter> extends AppCompatActivity implements IView {
+public abstract class BaseMvpActivity<P extends BasePresenter> extends RxAppCompatActivity implements IView {
     protected P mPresenter;
     private Unbinder unbinder;
 
@@ -23,6 +28,7 @@ public abstract class BaseMvpActivity<P extends BasePresenter> extends AppCompat
         unbinder = ButterKnife.bind(this);
         // 初始化Presenter
         initPresenter();
+        subscribeEvent();
     }
 
     private void initPresenter() {
@@ -31,6 +37,41 @@ public abstract class BaseMvpActivity<P extends BasePresenter> extends AppCompat
         if (mPresenter != null) {
             mPresenter.attachView(this);
         }
+    }
+
+    /**
+     * 订阅RxBus事件
+     */
+    private void subscribeEvent() {
+        RxBus.getInstance().toObservable(ExceptionEvent.class).compose(this
+                .<ExceptionEvent>bindToLifecycle()).subscribe(new BaseSubscriber<ExceptionEvent>() {
+
+            @Override
+            public void onSuccess(ExceptionEvent data) {
+                switch (data.getEventCode()) {
+                    case HttpConstants.CODE_FORCE_LOGOUT:
+                        // 账号在其他设备登录
+                        break;
+                    case HttpConstants.CODE_TOKEN_INVALID:
+                        // token过期
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            @Override
+            public void onFailed(Throwable ex, String code, String msg) {
+                subscribeEvent();
+            }
+
+            @Override
+            public void onError() {
+                // 这里注意: 一旦订阅过程中发生异常,走到onError,则代表此次订阅事件完成,后续将收不到onNext()事件,
+                // 即 接受不到后续的任何事件,实际环境中,我们需要在onError里 重新订阅事件!
+                subscribeEvent();
+            }
+        });
     }
 
     @Override

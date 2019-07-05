@@ -88,6 +88,9 @@ public abstract class BaseSubscriber<T> extends Subscriber<T> {
 
     public abstract void onFailed(Throwable ex, String code, String msg);
 
+    /**
+     * 新项目考虑删除此方法
+     */
     public abstract void onError();
 
 }
