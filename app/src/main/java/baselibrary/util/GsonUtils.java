@@ -15,15 +15,15 @@ import java.util.List;
  * Created by wz
  * on 2016/5/19.
  */
-public class GsonUtil {
-    protected static GsonUtil Instance;
+public class GsonUtils {
+    protected static GsonUtils Instance;
     private Gson gson;
 
-    protected GsonUtil() {
+    protected GsonUtils() {
         gson = new Gson();
     }
 
-    public static GsonUtil getInstance() {
+    public static GsonUtils getInstance() {
         if (Instance == null) {
             createObj();
         }
@@ -32,7 +32,7 @@ public class GsonUtil {
 
     protected synchronized static void createObj() {
         if (Instance == null) {
-            Instance = new GsonUtil();
+            Instance = new GsonUtils();
         }
     }
 

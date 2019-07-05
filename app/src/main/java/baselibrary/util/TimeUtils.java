@@ -10,7 +10,7 @@ import java.util.Date;
  * @author yangming on 2018/7/27
  */
 @SuppressLint("SimpleDateFormat")
-public class TimeUtil {
+public class TimeUtils {
 
     /**
      * 获取当前日期+时间

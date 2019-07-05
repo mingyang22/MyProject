@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
  * 设备工具类
  */
 @SuppressLint("PrivateApi")
-public class DeviceUtil {
+public class DeviceUtils {
 
     private final static String TAG = "QMUIDeviceHelper";
     private final static String KEY_MIUI_VERSION_NAME = "ro.miui.ui.version.name";

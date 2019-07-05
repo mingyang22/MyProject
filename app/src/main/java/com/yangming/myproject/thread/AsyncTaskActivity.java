@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.yangming.myproject.R;
 
-import baselibrary.util.TimeUtil;
+import baselibrary.util.TimeUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -72,7 +72,7 @@ public class AsyncTaskActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Log.e(TAG, s + "execute finish at " + TimeUtil.getCurrentDateTime(0));
+            Log.e(TAG, s + "execute finish at " + TimeUtils.getCurrentDateTime(0));
         }
     }
 

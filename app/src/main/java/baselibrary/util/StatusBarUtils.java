@@ -57,7 +57,7 @@ public class StatusBarUtils {
             return;
         }
         // 小米和魅族4.4 以上版本支持沉浸式
-        if (DeviceUtil.isMeizu() || DeviceUtil.isMIUI()) {
+        if (DeviceUtils.isMeizu() || DeviceUtils.isMIUI()) {
             Window window = activity.getWindow();
             window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
                     WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -101,7 +101,7 @@ public class StatusBarUtils {
     public static boolean setStatusBarLightMode(Activity activity) {
         if (activity == null) return false;
         // 无语系列：ZTK C2016只能时间和电池图标变色。。。。
-        if (DeviceUtil.isZTKC2016()) {
+        if (DeviceUtils.isZTKC2016()) {
             return false;
         }
 
@@ -197,7 +197,7 @@ public class StatusBarUtils {
         int systemUi = light ? View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR : View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
         systemUi = changeStatusBarModeRetainFlag(window, systemUi);
         decorView.setSystemUiVisibility(systemUi);
-        if (DeviceUtil.isMIUIV9()) {
+        if (DeviceUtils.isMIUIV9()) {
             // MIUI 9 低于 6.0 版本依旧只能回退到以前的方案
             // https://github.com/QMUI/QMUI_Android/issues/160
             MIUISetStatusBarLightMode(window, light);
@@ -241,11 +241,11 @@ public class StatusBarUtils {
      * 见小米开发文档说明：https://dev.mi.com/console/doc/detail?pId=1159
      */
     private static boolean isMIUICustomStatusBarLightModeImpl() {
-        if (DeviceUtil.isMIUIV9() && Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+        if (DeviceUtils.isMIUIV9() && Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             return true;
         }
-        return DeviceUtil.isMIUIV5() || DeviceUtil.isMIUIV6() ||
-                DeviceUtil.isMIUIV7() || DeviceUtil.isMIUIV8();
+        return DeviceUtils.isMIUIV5() || DeviceUtils.isMIUIV6() ||
+                DeviceUtils.isMIUIV7() || DeviceUtils.isMIUIV8();
     }
 
     /**
@@ -342,7 +342,7 @@ public class StatusBarUtils {
      * 检测 Android 6.0 是否可以启用 window.setStatusBarColor(Color.TRANSPARENT)。
      */
     public static boolean supportTransclentStatusBar6() {
-        return !(DeviceUtil.isZUKZ1() || DeviceUtil.isZTKC2016());
+        return !(DeviceUtils.isZUKZ1() || DeviceUtils.isZTKC2016());
     }
 
     /**
@@ -362,7 +362,7 @@ public class StatusBarUtils {
         try {
             clazz = Class.forName("com.android.internal.R$dimen");
             obj = clazz.newInstance();
-            if (DeviceUtil.isMeizu()) {
+            if (DeviceUtils.isMeizu()) {
                 try {
                     field = clazz.getField("status_bar_height_large");
                 } catch (Throwable t) {
@@ -383,14 +383,14 @@ public class StatusBarUtils {
                 t.printStackTrace();
             }
         }
-        if (DeviceUtil.isTablet(context)
-                && sStatusbarHeight > DisplayUtil.dip2px(context, STATUS_BAR_DEFAULT_HEIGHT_DP)) {
+        if (DeviceUtils.isTablet(context)
+                && sStatusbarHeight > DisplayUtils.dip2px(context, STATUS_BAR_DEFAULT_HEIGHT_DP)) {
             //状态栏高度大于25dp的平板，状态栏通常在下方
             sStatusbarHeight = 0;
         } else {
             if (sStatusbarHeight <= 0) {
                 if (sVirtualDensity == -1) {
-                    sStatusbarHeight = DisplayUtil.dip2px(context, STATUS_BAR_DEFAULT_HEIGHT_DP);
+                    sStatusbarHeight = DisplayUtils.dip2px(context, STATUS_BAR_DEFAULT_HEIGHT_DP);
                 } else {
                     sStatusbarHeight = (int) (STATUS_BAR_DEFAULT_HEIGHT_DP * sVirtualDensity + 0.5f);
                 }

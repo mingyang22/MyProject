@@ -6,7 +6,7 @@ import android.util.DisplayMetrics;
 /**
  * @author yangming on 2018/7/20
  */
-public class DisplayUtil {
+public class DisplayUtils {
 
     /** 获取屏幕宽度 */
     public static int getDisplayWidth(Context context) {
