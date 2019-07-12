@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e(TAG, "onCreate: ");
+        Log.d(TAG, "onCreate: ");
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
     }
@@ -83,43 +83,43 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        Log.e(TAG, "onRestart: ");
+        Log.d(TAG, "onRestart: ");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Log.e(TAG, "onStart: ");
+        Log.d(TAG, "onStart: ");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.e(TAG, "onStop: ");
+        Log.d(TAG, "onStop: ");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.e(TAG, "onResume: ");
+        Log.d(TAG, "onResume: ");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.e(TAG, "onPause: ");
+        Log.d(TAG, "onPause: ");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.e(TAG, "onDestroy: ");
+        Log.d(TAG, "onDestroy: ");
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        Log.e(TAG, "onNewIntent: ");
+        Log.d(TAG, "onNewIntent: ");
     }
 
 

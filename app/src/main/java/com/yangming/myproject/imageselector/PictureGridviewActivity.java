@@ -247,7 +247,7 @@ public class PictureGridviewActivity extends AppCompatActivity implements OnItem
                 mCursor.close();
 
                 ImageFloder imageFloder = new ImageFloder();
-                imageFloder.setFirstImagePath(allImgs.get(0));
+                imageFloder.setFirstImagePath(allImgs.size() == 0 ? "" : allImgs.get(0));
                 imageFloder.setName("全部图片");
                 imageFloder.setCount(allImgs.size());
                 mImageFloders.add(0, imageFloder);
