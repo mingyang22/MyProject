@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.yangming.myproject.alipayhome.AlipayHomeActivity;
 import com.yangming.myproject.chat.ChatActivity;
+import com.yangming.myproject.design.LoginActivity;
 import com.yangming.myproject.imageloader.PhotoWallActivity;
 import com.yangming.myproject.thread.AsyncTaskActivity;
 import com.yangming.myproject.view.ViewActivity;
@@ -36,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.btn_alipay, R.id.btn_image, R.id.btn_chat, R.id.btn_snapHelper, R.id.btn_view, R.id.btn_link, R.id.btn_notification, R.id.btn_data_binding, R.id.btn_messenger, R.id.btn_aidl, R.id.btn_thread, R.id.btn_photo_wall})
+    @OnClick({R.id.btn_alipay, R.id.btn_image, R.id.btn_chat, R.id.btn_snapHelper, R.id.btn_view,
+            R.id.btn_link, R.id.btn_notification, R.id.btn_data_binding, R.id.btn_messenger, R.id.btn_aidl,
+            R.id.btn_thread, R.id.btn_photo_wall, R.id.btn_design})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_alipay:
@@ -74,6 +77,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.btn_photo_wall:
                 startActivity(new Intent(this, PhotoWallActivity.class));
+                break;
+            case R.id.btn_design:
+                startActivity(new Intent(this, LoginActivity.class));
                 break;
             default:
                 break;
