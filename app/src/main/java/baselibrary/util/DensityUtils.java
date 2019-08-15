@@ -7,6 +7,8 @@ import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
 
+import java.lang.reflect.Field;
+
 /**
  * @author yangming on 2019/6/11
  * 屏幕适配方案
@@ -87,6 +89,30 @@ public class DensityUtils {
         activityDisplayMetrics.density = targetDensity;
         activityDisplayMetrics.scaledDensity = targetScaledDensity;
         activityDisplayMetrics.densityDpi = targetDensityDpi;
+        setBitmapDefaultDensity(activityDisplayMetrics.densityDpi);
+    }
+
+    /**
+     * 设置 Bitmap 的默认屏幕密度
+     * 由于 Bitmap 的屏幕密度是读取配置的，导致修改未被启用
+     * 所有，放射方式强行修改
+     *
+     * @param defaultDensity 屏幕密度
+     */
+    private static void setBitmapDefaultDensity(int defaultDensity) {
+        //获取单个变量的值
+        Class clazz;
+        try {
+            clazz = Class.forName("android.graphics.Bitmap");
+            Field field = clazz.getDeclaredField("sDefaultDensity");
+            field.setAccessible(true);
+            field.set(null, defaultDensity);
+            field.setAccessible(false);
+        } catch (ClassNotFoundException e) {
+        } catch (NoSuchFieldException e) {
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -97,6 +123,7 @@ public class DensityUtils {
         activityDisplayMetrics.density = appDensity;
         activityDisplayMetrics.scaledDensity = appScaledDensity;
         activityDisplayMetrics.densityDpi = (int) (appDensity * 160);
+        setBitmapDefaultDensity(activityDisplayMetrics.densityDpi);
     }
 
 }
