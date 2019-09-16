@@ -1,4 +1,4 @@
-package com.yangming.myproject.view.mask;
+package baselibrary.view;
 
 import android.content.Context;
 import android.graphics.Canvas;

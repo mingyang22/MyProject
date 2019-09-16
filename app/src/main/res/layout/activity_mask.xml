@@ -7,7 +7,7 @@
     android:background="@color/yellow"
     tools:context=".view.mask.MaskActivity">
 
-    <com.yangming.myproject.view.mask.MaskView
+    <baselibrary.view.MaskView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="20dp" />
