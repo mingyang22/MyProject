@@ -28,7 +28,8 @@
         android:id="@+id/btn_snapHelper"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:text="SnapHelper" />
+        android:text="SnapHelper"
+        android:textAllCaps="false" />
 
     <Button
         android:id="@+id/btn_view"
@@ -52,13 +53,15 @@
         android:id="@+id/btn_data_binding"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:text="databinding" />
+        android:text="Databinding"
+        android:textAllCaps="false" />
 
     <Button
         android:id="@+id/btn_messenger"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:text="信使messenger" />
+        android:text="信使Messenger"
+        android:textAllCaps="false" />
 
     <Button
         android:id="@+id/btn_aidl"
@@ -82,5 +85,13 @@
         android:id="@+id/btn_design"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:text="Design 控件" />
+        android:text="Design 控件"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_service"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Service"
+        android:textAllCaps="false" />
 </LinearLayout>

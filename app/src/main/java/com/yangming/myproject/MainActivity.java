@@ -1,6 +1,7 @@
 package com.yangming.myproject;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -8,17 +9,18 @@ import android.view.View;
 
 import com.yangming.myproject.alipayhome.AlipayHomeActivity;
 import com.yangming.myproject.chat.ChatActivity;
+import com.yangming.myproject.databinding.BindingActivity;
 import com.yangming.myproject.design.LoginActivity;
 import com.yangming.myproject.imageloader.PhotoWallActivity;
-import com.yangming.myproject.thread.AsyncTaskActivity;
-import com.yangming.myproject.view.ViewActivity;
-import com.yangming.myproject.databinding.BindingActivity;
 import com.yangming.myproject.imageselector.PictureGridviewActivity;
 import com.yangming.myproject.ipc.MessengerActivity;
 import com.yangming.myproject.ipc.aidl.BookManagerActivity;
 import com.yangming.myproject.linkman.LinkManActivity;
 import com.yangming.myproject.notification.NotificationActivity;
+import com.yangming.myproject.service.ServiceActivity;
 import com.yangming.myproject.snaphelper.SnapHelperActivity;
+import com.yangming.myproject.thread.ThreadActivity;
+import com.yangming.myproject.view.ViewActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -39,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick({R.id.btn_alipay, R.id.btn_image, R.id.btn_chat, R.id.btn_snapHelper, R.id.btn_view,
             R.id.btn_link, R.id.btn_notification, R.id.btn_data_binding, R.id.btn_messenger, R.id.btn_aidl,
-            R.id.btn_thread, R.id.btn_photo_wall, R.id.btn_design})
+            R.id.btn_thread, R.id.btn_photo_wall, R.id.btn_design, R.id.btn_service})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_alipay:
@@ -73,13 +75,17 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, BookManagerActivity.class));
                 break;
             case R.id.btn_thread:
-                startActivity(new Intent(this, AsyncTaskActivity.class));
+//                startActivity(new Intent(this, AsyncTaskActivity.class));
+                startActivity(new Intent(this, ThreadActivity.class));
                 break;
             case R.id.btn_photo_wall:
                 startActivity(new Intent(this, PhotoWallActivity.class));
                 break;
             case R.id.btn_design:
                 startActivity(new Intent(this, LoginActivity.class));
+                break;
+            case R.id.btn_service:
+                startActivity(new Intent(this, ServiceActivity.class));
                 break;
             default:
                 break;
@@ -128,5 +134,12 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onNewIntent: ");
     }
 
-
+    /**
+     * 在屏幕旋转时不会销毁，只会回调此方法
+     */
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Log.d(TAG, "onConfigurationChanged: ");
+    }
 }

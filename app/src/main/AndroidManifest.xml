@@ -21,6 +21,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -87,8 +88,15 @@
         <activity android:name=".imageloader.PhotoWallActivity" />
         <activity
             android:name=".design.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:label="@string/title_activity_login" />
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".thread.ThreadActivity" />
+        <activity android:name=".service.ServiceActivity" />
+
+        <service
+            android:name=".service.MyService"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>
