@@ -3,6 +3,7 @@ package com.yangming.myproject.thread;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
@@ -68,8 +69,15 @@ public class ThreadActivity extends AppCompatActivity {
     public class MyThread extends Thread {
         @Override
         public void run() {
-            super.run();
-            handler.sendEmptyMessage(0);
+            Handler handler1 = new Handler(Looper.getMainLooper()) {
+                @Override
+                public void handleMessage(Message msg) {
+                    tv1.setText("我是继承Thread方式创建的线程:" + Thread.currentThread().getName()
+                            + "\n子线程创建Handler更新UI");
+
+                }
+            };
+            handler1.sendEmptyMessage(0);
         }
     }
 
