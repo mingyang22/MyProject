@@ -3,7 +3,10 @@ package baselibrary.util;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
+import android.graphics.PointF;
+import android.graphics.Rect;
 import android.hardware.Camera;
+import android.media.FaceDetector;
 import android.util.Log;
 import android.view.Surface;
 
@@ -134,8 +137,10 @@ public class CameraUtil {
      * @param bitmap   图片
      * @return 旋转后图片
      */
-    public Bitmap setTakePictureOrientation(Activity activity, int id, Bitmap bitmap) {
-        bitmap = rotatingImageView(id, calculateDisplayOrientation(activity, id), bitmap);
+    public Bitmap setTakePictureOrientation(int id, Bitmap bitmap) {
+        Camera.CameraInfo info = new Camera.CameraInfo();
+        Camera.getCameraInfo(id, info);
+        bitmap = rotatingImageView(id, info.orientation, bitmap);
         return bitmap;
     }
 
@@ -148,18 +153,14 @@ public class CameraUtil {
     private Bitmap rotatingImageView(int id, int angle, Bitmap bitmap) {
         //矩阵
         Matrix matrix = new Matrix();
-        //0是后置
-        if (id == 0 && angle == 90) {
-            matrix.postRotate(angle);
-        }
+        matrix.postRotate(angle);
         //加入翻转 把相机拍照返回照片转正
         if (id == 1) {
             matrix.postScale(-1, 1);
         }
         // 创建新的图片
-        Bitmap resizedBitmap = Bitmap.createBitmap(bitmap, 0, 0,
+        return Bitmap.createBitmap(bitmap, 0, 0,
                 bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-        return resizedBitmap;
     }
 
     /**
@@ -456,6 +457,52 @@ public class CameraUtil {
             }
         }
     }
+
+    public List<Rect> detectionBitmap(Bitmap bitmap, int screenWidth, int screenHeight) {
+        // 设置你想检测的数量，数值越大错误率越高，所以需要置信度来判断,但有时候置信度也会出问题
+        int MAX_FACES = 1;
+        FaceDetector faceDet = new FaceDetector(bitmap.getWidth(), bitmap.getHeight(), MAX_FACES);
+        // 将人脸数据存储到faceArray中
+        FaceDetector.Face[] faceArray = new FaceDetector.Face[MAX_FACES];
+        // 返回找到图片中人脸的数量，同时把返回的脸部位置信息放到faceArray中，过程耗时,图片越大耗时越久
+        int findFaceNum = faceDet.findFaces(bitmap, faceArray);
+        Log.e(TAG, "找到脸部数量:" + findFaceNum);
+        if (findFaceNum == 0) {
+            return null;
+        }
+        List<Rect> rects = new ArrayList<>();
+        PointF pf = new PointF();
+        Rect r = null;
+        //这里需要 算出 SurfaceView 的宽度跟 抓取每一帧图像宽度的比例，主要是为了让图像的某个坐标转化实际 SurfaceView 的坐标
+        float scaleX = screenWidth * 1.0f / bitmap.getWidth();
+        //高度同理
+        float scaleY = screenHeight * 1.0f / bitmap.getHeight();
+        float scale = Math.max(scaleX, scaleY);
+        Log.e(TAG, "Bitmap Width：" + bitmap.getWidth() + " Height：" + bitmap.getHeight() + " scaleX：" + scaleX + " scaleY：" + scaleY);
+        for (FaceDetector.Face face : faceArray) {
+            r = new Rect();
+            if (face == null) {
+                continue;
+            }
+            face.getMidPoint(pf);
+            Log.i(TAG, "可信度 confidence:" + face.confidence());
+            if (face.confidence() < 0.3) {
+                continue;
+            }
+            // 这里的框，参数分别是：左上角的X,Y 右下角的X,Y
+            // 也就是左上角（r.left,r.top），右下角( r.right,r.bottom)。
+            // 该宽度是两眼珠黑色外边距
+            float eyesDistance1 = face.eyesDistance();
+            r.left = (int) (pf.x * scale - eyesDistance1);
+            r.right = (int) (pf.x * scale + eyesDistance1);
+            r.top = (int) (pf.y * scale - eyesDistance1);
+            r.bottom = (int) (pf.y * scale + eyesDistance1 * 1.3f);
+            Log.d(TAG, r.toString());
+            rects.add(r);
+        }
+        return rects;
+    }
+
 
     class WrapCameraSize {
         // 索引

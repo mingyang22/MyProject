@@ -4,16 +4,21 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.ImageFormat;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.graphics.YuvImage;
 import android.hardware.Camera;
 import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.FrameLayout;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +39,8 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
     private SurfaceHolder mHolder;
     private CameraUtil cameraInstance;
     private SensorController mSensorController;
+    private Handler mBackgroundHandler;
+    private long lastTime = 0L;
     /**
      * 拍照id  1： 前摄像头  0：后摄像头
      */
@@ -47,6 +54,8 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
     private Handler mHandler = new Handler();
 
     private FocusCallback focusCallback;
+
+    private FaceDetectorCallback faceDetectorCallback;
 
     public CameraView(Context context) {
         this(context, null);
@@ -93,6 +102,17 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
                 setupCamera(mCamera);
                 mCamera.setPreviewDisplay(mHolder);
                 cameraInstance.setCameraDisplayOrientation(mActivity, mCameraId, mCamera);
+                if (faceDetectorCallback != null) {
+                    mCamera.setPreviewCallbackWithBuffer((data, camera) -> {
+                        // 识别人脸
+                        onFaceDetector(data, camera);
+                        camera.addCallbackBuffer(data);
+                    });
+                    // print saved parameters
+                    int previewWidth = mCamera.getParameters().getPreviewSize().width;
+                    int previewHeight = mCamera.getParameters().getPreviewSize().height;
+                    mCamera.addCallbackBuffer(new byte[((previewWidth * previewHeight) * ImageFormat.getBitsPerPixel(ImageFormat.NV21)) / 8]);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -277,6 +297,11 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
             mCamera.release();
             mCamera = null;
         }
+        if (mBackgroundHandler != null) {
+            mBackgroundHandler.removeCallbacksAndMessages(null);
+            mBackgroundHandler.getLooper().quitSafely();
+            mBackgroundHandler = null;
+        }
     }
 
     public void takePicture(PictureCallback callback) {
@@ -285,7 +310,7 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
             // 将data 转换为位图 或者你也可以直接保存为文件使用 FileOutputStream
             Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
             // 将图片转正方向
-            Bitmap saveBitmap = cameraInstance.setTakePictureOrientation(mActivity, mCameraId, bitmap);
+            Bitmap saveBitmap = cameraInstance.setTakePictureOrientation(mCameraId, bitmap);
             saveBitmap = Bitmap.createScaledBitmap(saveBitmap, screenWidth, screenHeight, true);
 
             if (!bitmap.isRecycled()) {
@@ -331,6 +356,122 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
         }
     };
 
+    /**
+     * 识别人脸
+     *
+     * @param data   预览帧数据
+     * @param camera camera
+     */
+    private void onFaceDetector(byte[] data, Camera camera) {
+        if (System.currentTimeMillis() - lastTime <= 200 || data == null || data.length == 0) {
+            return;
+        }
+        Log.i(TAG, "onPreviewFrame " + data.length);
+        getBackgroundHandler().post(new FaceThread(data, camera));
+        lastTime = System.currentTimeMillis();
+    }
+
+    /**
+     * 新建子线程并返回 Handler
+     *
+     * @return Handler
+     */
+    private Handler getBackgroundHandler() {
+        if (mBackgroundHandler == null) {
+            HandlerThread thread = new HandlerThread("background");
+            thread.start();
+            mBackgroundHandler = new Handler(thread.getLooper());
+        }
+        return mBackgroundHandler;
+    }
+
+    /**
+     * 获取主线程 Handler
+     *
+     * @return Handler
+     */
+    private Handler getMainHandler() {
+        return new Handler(Looper.getMainLooper());
+    }
+
+    private class FaceThread implements Runnable {
+        private byte[] mData;
+        private ByteArrayOutputStream mBitmapOutput;
+        private Camera mCamera;
+
+        FaceThread(byte[] data, Camera camera) {
+            mData = data;
+            mBitmapOutput = new ByteArrayOutputStream();
+            mCamera = camera;
+        }
+
+        @Override
+        public void run() {
+            Bitmap bitmap = null;
+            Bitmap roteBitmap = null;
+            try {
+                Camera.Parameters parameters = mCamera.getParameters();
+                int width = parameters.getPreviewSize().width;
+                int height = parameters.getPreviewSize().height;
+
+                YuvImage yuv = new YuvImage(mData, parameters.getPreviewFormat(), width, height, null);
+                mData = null;
+                yuv.compressToJpeg(new Rect(0, 0, width, height), 100, mBitmapOutput);
+
+                byte[] bytes = mBitmapOutput.toByteArray();
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inPreferredConfig = Bitmap.Config.RGB_565;//必须设置为565，否则无法检测
+                bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
+
+                mBitmapOutput.reset();
+                roteBitmap = cameraInstance.setTakePictureOrientation(mCameraId, bitmap);
+                List<Rect> rects = cameraInstance.detectionBitmap(roteBitmap, screenWidth, screenHeight);
+                Log.e(TAG, "roteBitmap width：" + roteBitmap.getWidth() + " Height：" + roteBitmap.getHeight());
+                if (null == rects || rects.size() == 0) {
+                    Log.i(TAG, "没有检测到人脸哦");
+                } else {
+                    Log.i(TAG, "检测到有" + rects.size() + "人脸");
+                    for (int i = 0; i < rects.size(); i++) {
+                        //返回的rect就是在 SurfaceView 上面的人脸对应的实际坐标
+                        int left = rects.get(i).left;
+                        int top = rects.get(i).top;
+                        int bottom = rects.get(i).bottom;
+                        int right = rects.get(i).right;
+                        Log.e(TAG, "rect : left：" + left + " top：" + top + "  right：" + right + "  bottom：" + bottom);
+                        // 裁剪人脸图片
+                        roteBitmap = Bitmap.createBitmap(roteBitmap, left, top, right - left, bottom - top);
+                        Bitmap finalRoteBitmap = Bitmap.createBitmap(roteBitmap);
+                        getMainHandler().post(() -> {
+                            faceDetectorCallback.onFaceDetectorCallback(finalRoteBitmap);
+                            mBackgroundHandler.removeCallbacksAndMessages(null);
+                            stopPreview();
+                        });
+                    }
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (bitmap != null) {
+                    bitmap.recycle();
+                }
+                if (roteBitmap != null) {
+                    roteBitmap.recycle();
+                }
+
+                if (mBitmapOutput != null) {
+                    try {
+                        mBitmapOutput.close();
+                        mBitmapOutput = null;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
+
+
     public interface PictureCallback {
         /**
          * 返回拍照后图片
@@ -352,6 +493,19 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
 
     public void setOnFocusCallback(FocusCallback callback) {
         this.focusCallback = callback;
+    }
+
+    public interface FaceDetectorCallback {
+        /**
+         * 人脸采集
+         *
+         * @param bitmap 采集后人脸图片
+         */
+        void onFaceDetectorCallback(Bitmap bitmap);
+    }
+
+    public void setOnFaceDetectorCallback(FaceDetectorCallback callback) {
+        this.faceDetectorCallback = callback;
     }
 
 }
