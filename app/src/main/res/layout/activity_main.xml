@@ -1,104 +1,183 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:paddingTop="15dp"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+    <Button
+        android:id="@+id/btn_alipay"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:text="支付宝首页"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/btn_image"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.4" />
 
-        <Button
-            android:id="@+id/btn_alipay"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="支付宝首页" />
+    <Button
+        android:id="@+id/btn_image"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:text="图片选择"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintLeft_toRightOf="@+id/btn_alipay"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.4" />
 
-        <Button
-            android:id="@+id/btn_image"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="图片选择" />
+    <Button
+        android:id="@+id/btn_chat"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:text="聊天"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/btn_snapHelper"
+        app:layout_constraintTop_toBottomOf="@+id/btn_alipay"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.4" />
 
-        <Button
-            android:id="@+id/btn_chat"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="聊天" />
+    <Button
+        android:id="@+id/btn_snapHelper"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:text="SnapHelper"
+        android:textAllCaps="false"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintLeft_toRightOf="@+id/btn_chat"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_alipay"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.4" />
 
-        <Button
-            android:id="@+id/btn_snapHelper"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="SnapHelper"
-            android:textAllCaps="false" />
+    <Button
+        android:id="@+id/btn_view"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:text="自定义view"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/btn_link"
+        app:layout_constraintTop_toBottomOf="@+id/btn_chat"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.4" />
 
-        <Button
-            android:id="@+id/btn_view"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="自定义view" />
+    <Button
+        android:id="@+id/btn_link"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:text="联系人"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintLeft_toRightOf="@+id/btn_view"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_chat"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.4" />
 
-        <Button
-            android:id="@+id/btn_link"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="联系人" />
+    <Button
+        android:id="@+id/btn_notification"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:text="通知"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/btn_data_binding"
+        app:layout_constraintTop_toBottomOf="@+id/btn_view"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.4" />
 
-        <Button
-            android:id="@+id/btn_notification"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="通知" />
+    <Button
+        android:id="@+id/btn_data_binding"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:text="Databinding"
+        android:textAllCaps="false"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintLeft_toRightOf="@+id/btn_notification"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_view"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.4" />
 
-        <Button
-            android:id="@+id/btn_data_binding"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="Databinding"
-            android:textAllCaps="false" />
+    <Button
+        android:id="@+id/btn_messenger"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:text="信使Messenger"
+        android:textAllCaps="false"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/btn_aidl"
+        app:layout_constraintTop_toBottomOf="@+id/btn_notification"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.4" />
 
-        <Button
-            android:id="@+id/btn_messenger"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="信使Messenger"
-            android:textAllCaps="false" />
+    <Button
+        android:id="@+id/btn_aidl"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:text="AIDL"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintLeft_toRightOf="@+id/btn_messenger"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_notification"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.4" />
 
-        <Button
-            android:id="@+id/btn_aidl"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="AIDL" />
+    <Button
+        android:id="@+id/btn_thread"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:text="线程"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/btn_photo_wall"
+        app:layout_constraintTop_toBottomOf="@+id/btn_messenger"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.4" />
 
-        <Button
-            android:id="@+id/btn_thread"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="线程" />
+    <Button
+        android:id="@+id/btn_photo_wall"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:text="照片墙"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintLeft_toRightOf="@+id/btn_thread"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_messenger"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.4" />
 
-        <Button
-            android:id="@+id/btn_photo_wall"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="照片墙" />
+    <Button
+        android:id="@+id/btn_design"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:text="Design 控件"
+        android:textAllCaps="false"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/btn_service"
+        app:layout_constraintTop_toBottomOf="@+id/btn_thread"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.4" />
 
-        <Button
-            android:id="@+id/btn_design"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="Design 控件"
-            android:textAllCaps="false" />
+    <Button
+        android:id="@+id/btn_service"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:text="Service"
+        android:textAllCaps="false"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintLeft_toRightOf="@+id/btn_design"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_thread"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.4" />
 
-        <Button
-            android:id="@+id/btn_service"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="Service"
-            android:textAllCaps="false" />
-
-    </LinearLayout>
-</ScrollView>
+</android.support.constraint.ConstraintLayout>
