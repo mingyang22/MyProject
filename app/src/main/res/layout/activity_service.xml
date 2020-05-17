@@ -7,7 +7,6 @@
     android:orientation="vertical"
     tools:context=".service.ServiceActivity">
 
-
     <Button
         android:id="@+id/btn_start"
         android:layout_width="wrap_content"
@@ -40,4 +39,18 @@
         android:id="@+id/tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btn_start_foreground"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="startForegroundService"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_stop_foreground"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="stopForegroundService"
+        android:textAllCaps="false" />
 </LinearLayout>

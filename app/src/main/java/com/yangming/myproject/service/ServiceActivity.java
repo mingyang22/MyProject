@@ -22,6 +22,7 @@ import butterknife.OnClick;
  */
 public class ServiceActivity extends AppCompatActivity {
     private Intent intent;
+    private Intent intentForeground;
     private ServiceConnection connection;
     private MyService myService;
 
@@ -35,6 +36,7 @@ public class ServiceActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         intent = new Intent(this, MyService.class);
+        intentForeground = new Intent(this, ForegroundService.class);
         connection = new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
@@ -64,7 +66,7 @@ public class ServiceActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    @OnClick({R.id.btn_start, R.id.btn_bind, R.id.btn_unbind, R.id.btn_stop})
+    @OnClick({R.id.btn_start, R.id.btn_bind, R.id.btn_unbind, R.id.btn_stop, R.id.btn_start_foreground, R.id.btn_stop_foreground})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_start:
@@ -78,6 +80,12 @@ public class ServiceActivity extends AppCompatActivity {
                 break;
             case R.id.btn_stop:
                 stopService(intent);
+                break;
+            case R.id.btn_start_foreground:
+                startService(intentForeground);
+                break;
+            case R.id.btn_stop_foreground:
+                stopService(intentForeground);
                 break;
             default:
                 break;
