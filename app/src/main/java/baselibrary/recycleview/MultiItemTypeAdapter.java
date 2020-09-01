@@ -122,7 +122,7 @@ public class MultiItemTypeAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
      * 在有数据的情况下添加数据集合
      */
     public void addDataList(List<T> datas) {
-        int position = mDatas.size() - 1;
+        int position = mDatas.size();
         mDatas.addAll(datas);
         notifyItemRangeInserted(position, datas.size());
     }
